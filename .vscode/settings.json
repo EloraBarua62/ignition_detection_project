@@ -1,0 +1,3 @@
+{
+  "python.analysis.extraPaths": ["./server/opc_ua_", "./server/opc_ua_"]
+}
