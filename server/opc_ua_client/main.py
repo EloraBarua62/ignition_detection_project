@@ -30,8 +30,14 @@ def start_client():
         simulated_folder = objects.get_child(["2:Simulated Data"])
         print("Simulated Data folder is:", simulated_folder)
       
-        temperature, pressure, humidity = DataServices.read_variable(simulated_folder)
-        print(f"Temperature: {temperature}, Pressure: {pressure}, Humidity: {humidity}")
+        # Store data into dataframe
+        data = DataServices.read_variable(simulated_folder)
+        
+        # Save collected data
+        df = pd.DataFrame(data, columns=["Temperature", "Pressure", "Humidity"])
+        output_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "ml_model", "data", "sensor_data.csv")
+        df.to_csv(output_path, index=False)
+        print("Data saved to sensor_data.csv")
 
         
     
