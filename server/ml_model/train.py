@@ -10,7 +10,7 @@ from preprocessing.preprocess import preprocess_data
 
 def train_model():
     # Load Dataset
-    file_path = r"H:\Personal Projects\OPC UA\opcua_ml_project\ml_model\data\sensor_data.csv"
+    file_path = r"H:\Personal Projects\OPC UA\ignition_detection_project\server\ml_model\data\sensor_data.csv"
     df = pd.read_csv(file_path)
 
     # Preprocess data

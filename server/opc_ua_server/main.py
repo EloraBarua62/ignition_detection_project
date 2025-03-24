@@ -37,7 +37,7 @@ def start_server():
     try:
         while True:
             # Generate random values for temperature, pressure, and humidity
-            temp_value = round(random.uniform(20.0, 30.0), 2)
+            temp_value = round(random.uniform(20.0, 50.0), 2)
             pressure_value = round(random.uniform(100.0, 110.0), 2)
             humidity_value = round(random.uniform(50.0, 70.0), 2)
 

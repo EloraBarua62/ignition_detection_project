@@ -11,15 +11,11 @@ class DataServices:
         pressure_node = simulated_folder.get_child(["2:Pressure"])
         humidity_node = simulated_folder.get_child(["2:Humidity"])  
 
-        for _ in range(10):
-            # Read the values
-            temperature = temperature_node.get_value()
-            pressure = pressure_node.get_value()
-            humidity = humidity_node.get_value()
-            print(f"Temperature: {temperature}, Pressure: {pressure}, Humidity: {humidity}")
-            data.append([temperature, pressure, humidity])
-            time.sleep(2)        
-        return data
+        # Read the values
+        temperature = temperature_node.get_value()
+        pressure = pressure_node.get_value()
+        humidity = humidity_node.get_value()      
+        return temperature, pressure, humidity
     
     @staticmethod
     def write_variable(client, node_id, value):
