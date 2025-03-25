@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: server/opc_ua_server/Dockerfile-server
+    container_name: ignition_server
+    networks:
+      - ignition_network
+    environment:
+      - ENVIRONMENT=production
+
+  opcua_client:
+    build:
+      context: .
+      dockerfile: server/opc_ua_client/Dockerfile-opcua-client
+    container_name: opc_ua_client
+    depends_on:
+      - server
+    networks:
+      - ignition_network
+    environment:
+      - ENVIRONMENT=production
+
+  model:
+    build:
+      context: .
+      dockerfile: server/ml_model/Dockerfile-model
+    container_name: ignition_model
+    depends_on:
+      - server
+      - opcua_client
+    networks:
+      - ignition_network
+    environment:
+      - ENVIRONMENT=production
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile-client
+    container_name: frontend_client
+    depends_on:
+      - server
+      - opcua_client
+      - model
+    networks:
+      - ignition_network
+    environment:
+      - ENVIRONMENT=development
+    ports:
+      - "3000:3000"
+
+networks:
+  ignition_network:
+    driver: bridge

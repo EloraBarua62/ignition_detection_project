@@ -9,6 +9,20 @@ from config import ServerConfig
 from opc_ua_server.models.methods import multiply
 from utils.helpers import log_message
 from opc_ua_server.models.nodes import create_address_space
+# from influxdb_client import InfluxDBClient, Point
+# from influxdb_client.client.write_api import SYNCHRONOUS
+
+
+
+# Initialize InfluxDB Client
+# influx_client = InfluxDBClient(
+#     url=ServerConfig.INFLUXDB_URL,
+#     token=ServerConfig.INFLUXDB_TOKEN,
+#     org=ServerConfig.INFLUXDB_ORG
+# )
+# write_api = influx_client.write_api(write_options=SYNCHRONOUS)
+
+
 
 
 # Method: Project setup , then start the server
@@ -47,6 +61,17 @@ def start_server():
             humidity.set_value(humidity_value)
 
             print(f"Updated Values - Temperature: {temp_value}, Pressure: {pressure_value}, Humidity: {humidity_value}")
+
+
+            # # Write data to InfluxDB
+            # point = Point("sensor_data") \
+            #     .field("temperature", temp_value) \
+            #     .field("pressure", pressure_value) \
+            #     .field("humidity", humidity_value)
+            # write_api.write(bucket=ServerConfig.INFLUXDB_BUCKET, record=point)
+            # log_message("Data written to InfluxDB.")
+
+
 
             # Wait for 2 seconds before the next update
             time.sleep(2)

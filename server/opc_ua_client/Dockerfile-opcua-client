@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy root-level requirements and install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the OPC UA client code
+COPY server/opc_ua_client /app
+
+# Expose a port if your client opens a service (optional)
+# EXPOSE 5001
+
+# Default command to run the OPC UA client
+CMD ["python", "main.py"]
